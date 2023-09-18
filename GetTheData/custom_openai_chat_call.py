@@ -12,22 +12,13 @@ def custom_openai_chat_call(config=[{"role": "system", "content": "You are a hel
   if config:
     if type(config) is not str:
       for item in config:
-        if item["role"] == "system":
-          messages.append(item)
-        elif item["role"] == "user":
-          messages.append(item)
-        elif item["role"] == "assistant":
+        if item["role"] in ["system", "user", "assistant"]:
           messages.append(item)
         else:
           print("Error: Invalid role")
-    elif type(config) is str:
-      messages.append({"role": "system", "content": config})
-      print("Using config: " + config + " as system message\n")
     else:
-      print("Error: No config provided")
-      print("Using default config")
-      messages.append({"role": "system", "content": "You are a helpful assistant."})
-
+      messages.append({"role": "system", "content": config})
+      print(f"Using config: {config}" + " as system message\n")
   print("Getting response from OpenAI...")
   response = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",

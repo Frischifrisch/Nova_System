@@ -33,9 +33,12 @@ class Bot:
         if isinstance(context, str):
             context = [{"role": "user", "content": context}]
         elif isinstance(context, list):
-            for item in context:
-                if hasattr(item, "role") and item.role in ["system", "user", "assistant"]:
-                    messages_to_send_to_openai.append(item)
+            messages_to_send_to_openai.extend(
+                item
+                for item in context
+                if hasattr(item, "role")
+                and item.role in ["system", "user", "assistant"]
+            )
         else:
             raise Exception("Invalid context type")
 
@@ -135,15 +138,11 @@ class Bot:
         return f"Bot {self.name} id {self._id} created at {self._time_of_instantiation}"
 
     def __eq__(self, other):
-        if not isinstance(other, Bot):
-            return NotImplemented
-        return self._id == other._id
+        return NotImplemented if not isinstance(other, Bot) else self._id == other._id
 
     def __ne__(self, other):
         result = self.__eq__(other)
-        if result is NotImplemented:
-            return result
-        return not result
+        return result if result is NotImplemented else not result
 
     def print_state(self):
         return f"""

@@ -23,9 +23,10 @@ class Bot:
 
     def _get_openai_chat_completions_response(self, user_input):
         self.__message_history.append({"role": "user", "content": user_input})
-        messages_to_sent_to_openai = [{"role": "system", "content": self.__system_message}]
-        messages_to_sent_to_openai.extend(list(self.__message_history))
-
+        messages_to_sent_to_openai = [
+            {"role": "system", "content": self.__system_message},
+            *list(self.__message_history),
+        ]
         try:
             response = get_custom_openai_chat_completions_response(messages_to_sent_to_openai)
         except Exception as e:

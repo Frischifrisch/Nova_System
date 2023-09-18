@@ -35,12 +35,6 @@ class Bot:
 
     def take_turn(self, game):
         print(f"{self.name}'s taking their turn")
-        # Determine action (e.g. move, attack, use item, etc.)
-        # Check if action is valid
-        # Perform action
-        # Check if game is over
-        # If game is not over, switch to other bot's turn
-        pass
 
     def move(self, destination):
         # Check if destination is valid and move the bot

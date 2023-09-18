@@ -13,12 +13,11 @@ def bot_view(request, id=None):
                 return redirect('bot_view', id=bot.id)
         else:
             form = BotForm(instance=bot)
+    elif request.method == 'POST':
+        form = BotForm(request.POST)
+        if form.is_valid():
+            bot = form.save()
+            return redirect('bot_view', id=bot.id)
     else:
-        if request.method == 'POST':
-            form = BotForm(request.POST)
-            if form.is_valid():
-                bot = form.save()
-                return redirect('bot_view', id=bot.id)
-        else:
-            form = BotForm()
+        form = BotForm()
     return render(request, 'bot_form.html', {'form': form})

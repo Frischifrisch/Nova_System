@@ -20,7 +20,7 @@ class App:
     self_string = ''
     for attr in dir(self):
       if not attr.startswith('__') or not attr.startswith('_'):
-        self_string += '{}: {}\n'.format(attr, getattr(self, attr))
+        self_string += f'{attr}: {getattr(self, attr)}\n'
         print(attr, getattr(self, attr))
     return self_string
 

@@ -28,11 +28,8 @@ class App():
     return self[test_name]
 
   def __str__(self) -> str:
-    self_string = ''
-    for attr in dir(self):
-      if not attr.startswith('__') or not attr.startswith('_'):
-        self_string += '{}: {}\n'.format(attr, getattr(self, attr))
-    return self_string
+    return ''.join(f'{attr}: {getattr(self, attr)}\n' for attr in dir(self)
+                   if not attr.startswith('__') or not attr.startswith('_'))
 
 if __name__ == '__main__':
   app = App()
