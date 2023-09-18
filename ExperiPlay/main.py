@@ -51,19 +51,17 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        existing_user = User.query.filter_by(username=username).first()
+    if request.method != 'POST':
+        return render_template('signup.html')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if existing_user := User.query.filter_by(username=username).first():
+        return 'User already exists!'
 
-        if existing_user:
-            return 'User already exists!'
-
-        new_user = User(username=username, password=generate_password_hash(password))
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('login'))
-    return render_template('signup.html')
+    new_user = User(username=username, password=generate_password_hash(password))
+    db.session.add(new_user)
+    db.session.commit()
+    return redirect(url_for('login'))
 
 @app.route('/dashboard')
 @login_required

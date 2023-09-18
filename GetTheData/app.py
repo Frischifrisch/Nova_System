@@ -26,13 +26,11 @@ def run_nova_prompt():
     print(nova_prime.get_last_response().choices[0].message.content)
 
     conversation_length = 5  # Modify this value to set the desired conversation length
-    count = 0
-
     # Have an iterative conversation between the bots
     # Have one bot ask a question, and the other bot respond, and the first bot wait for the response and then ask another question
 
     current_message = starter_prompt
-    for _ in range(conversation_length):
+    for count, _ in enumerate(range(conversation_length)):
         print(f"__________\n\n\n\nConversation Iteration {count}\n\n\n\n__________")
         nova_prime.respond_to(test_bot.get_last_response().choices[0].message.content)
         nova_response_text = nova_prime.get_last_response().choices[0].message.content
@@ -44,7 +42,6 @@ def run_nova_prompt():
         print(f"{test_bot.name} says:\n\n\n\n")
         print(test_bot_response_text)
         print(f"\n\n\n\n__________")
-        count += 1
 
     # Uncomment the line below if you want to print the last message
     # print(f"Last Message: {current_message}")

@@ -112,7 +112,7 @@ class Game:
         self.canvas.delete("all")
         for i, row in enumerate(self.grid):
             for j, cell in enumerate(row):
-                if cell == 'D' or cell == '.':
+                if cell in ['D', '.']:
                     color = 'white'  # open space or door
                 elif cell == 'P':
                     color = 'blue'  # player

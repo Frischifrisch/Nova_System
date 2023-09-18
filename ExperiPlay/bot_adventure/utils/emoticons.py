@@ -31,10 +31,7 @@ class Character(GameEntity):
 
     @health.setter
     def health(self, value):
-        if value < 0:
-            self._health = 0
-        else:
-            self._health = value
+        self._health = max(value, 0)
 
     @property
     def strength(self):
@@ -42,10 +39,7 @@ class Character(GameEntity):
 
     @strength.setter
     def strength(self, value):
-        if value < 0:
-            self._strength = 0
-        else:
-            self._strength = value
+        self._strength = max(value, 0)
 
     def move(self, direction):
         # Implement the move function here
